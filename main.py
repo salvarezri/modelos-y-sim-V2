@@ -32,17 +32,17 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        # if event.type == pygame.MOUSEBUTTONDOWN:
-    # click
-    # fondo
-    screen.fill((255, 255, 255))
-    # malla para separar grupos
-    # continuar simulación
-    if dia.estado:
-        dia.primerPaso()
-    else:
-        dia.segundoPaso()
-    util.pintarMalla(ANCHO, ALTO, screen)
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            # click
+            # fondo
+            screen.fill((255, 255, 255))
+            # malla para separar grupos
+            # continuar simulación
+            if dia.estado:
+                dia.primerPaso()
+            else:
+                dia.segundoPaso()
+            util.pintarMalla(ANCHO, ALTO, screen)
     # flip el display
     pygame.display.flip()
     # finalizar al día 80

@@ -3,7 +3,7 @@ from Persona import Persona
 
 
 class Grupo:
-    def __init__(self, tipo, contagio, enfermos, columnas, filas, pInicial, ancho, alto, screen=None):
+    def __init__(self, tipo, contagio, enfermos, columnas, filas, pInicial, ancho, alto, periodoRec,  screen=None):
         """
         :param tipo: int
         :param contagio: float
@@ -48,6 +48,8 @@ class Grupo:
         # variable que comprueba la proporción de infectados en el grupo
         # estado = 0 -> pocos; estado = 1 -> medios; estado = 2 -> muchos
         self.estado = 0
+        # periodo de recuperación
+        self.periodoRec = periodoRec
 
     def iniciarPersonas(self) -> None:
         self.personas = []
@@ -82,7 +84,7 @@ class Grupo:
                 # comprueba si hay persona
                 if not (self.personas[y][x] is None):
                     # calcula si la persona se contagió
-                    if self.personas[y][x].calcularContagio(self._contagio*factor, dia):
+                    if self.personas[y][x].calcularContagio(self._contagio*factor, dia, self.periodoRec):
                         # si la persona se contagió la agrega a la lista de contagios
                         self.enfermos.append(self.personas[y][x])
 
