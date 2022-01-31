@@ -3,7 +3,7 @@ from Persona import Persona
 
 
 class Grupo:
-    def __init__(self, tipo, contagio, enfermos, columnas, filas, pInicial, ancho, alto, periodoRec,  screen=None):
+    def __init__(self, tipo, contagio, enfermos, columnas, filas, pInicial, ancho, alto, periodoRec, periodoInmune, screen=None):
         """
         :param tipo: int
         :param contagio: float
@@ -50,6 +50,8 @@ class Grupo:
         self.estado = 0
         # periodo de recuperación
         self.periodoRec = periodoRec
+        #periodo de inmunidad
+        self.periodoInmune = periodoInmune
 
     def iniciarPersonas(self) -> None:
         self.personas = []
@@ -77,14 +79,14 @@ class Grupo:
 
     def revisarContagios(self, dia):
         # se agrega un factor dependiendo de la tasa de contagiados en el grupo
-        factor = 1+(self.estado*0.5)
+        factor = 1+(self.estado)
         # se recorre el arreglo de izq. a der y de arriba a abajo
         for y in range(0, len(self.personas)):
             for x in range(0, len(self.personas[0])):
                 # comprueba si hay persona
                 if not (self.personas[y][x] is None):
                     # calcula si la persona se contagió
-                    if self.personas[y][x].calcularContagio(self._contagio*factor, dia, self.periodoRec):
+                    if self.personas[y][x].calcularContagio(self._contagio*factor, dia, self.periodoRec, self.periodoInmune):
                         # si la persona se contagió la agrega a la lista de contagios
                         self.enfermos.append(self.personas[y][x])
 
@@ -163,10 +165,10 @@ class Grupo:
         if personasGrupo != 0:
             # verificar proporción
             prop = infectadosGrupo/personasGrupo
-        print("grupo: ", self.tipo, "personas: ", personasGrupo, " infectados: ", infectadosGrupo, " prop: ", prop, " estado: ", self.estado)
-        if prop < 0.33:
+        # print("grupo: ", self.tipo, "personas: ", personasGrupo, " infectados: ", infectadosGrupo, " prop: ", prop, " estado: ", self.estado)
+        if prop < 0.07:
             self.estado = 0
-        elif prop < 0.66:
+        elif prop < 0.20:
             self.estado = 1
         else:
             self.estado = 2

@@ -27,6 +27,7 @@ dia = Dia(screen, grupos, personas)
 # Run until the user asks to quit
 running = True
 screen.fill((255, 255, 255))
+print("personas: "," contagiados: ", " proporción: ", " día: " )
 while running:
     # Did the user click the window close button?
     for event in pygame.event.get():
@@ -42,6 +43,9 @@ while running:
                 dia.primerPaso()
             else:
                 dia.segundoPaso()
+                contagiados = util.calcContagiados(personas)
+                print(n, len(contagiados),  len(contagiados)/n, dia.dia )
+
             util.pintarMalla(ANCHO, ALTO, screen)
     # flip el display
     pygame.display.flip()
@@ -49,7 +53,6 @@ while running:
     if dia.dia >80:
         running = False
 
-print("personas: ",n, " contagiados: ", len(enfermos), " proporción: ", len(enfermos)/n )
 # Done! Time to quit.
 pygame.quit()
 
