@@ -3,7 +3,7 @@ from Dia import Dia
 from Persona import Persona
 import pygame
 import random
-
+print("Anim anim commodo nisi est sint laboris.")
 def calcContagiados(personas = [Persona(0,1)]) -> list[Persona]:
     contagiados = []
     for persona in personas:
