@@ -1,4 +1,5 @@
 import random
+print("Nostrud enim labore esse fugiat ea.")
 class Dia:
     def __init__(self, screen, grupos, personas):
         self.dia = 0
